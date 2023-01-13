@@ -14,8 +14,8 @@ public class validationApp {
 
 
 
-    @Test
-    public void postHash() {
+    @Test (priority=1)
+    public void postHash(){
 
         JSONObject request = new JSONObject();
                 request.put("password", "angrymonkey2212");
@@ -26,25 +26,25 @@ public class validationApp {
                 when().
                 post("/hash").
                 then().
-                statusCode(200).log().all().body(equalTo("num"));
+                statusCode(200).log().all().body(equalTo(""+num));
         num++;
 
     }
 
 
-    @Test
+    @Test (priority=3)
     public void getPass64() {
-
+          num--;
         given().contentType(ContentType.JSON).
                 baseUri(baseLine).
-                get("/hash/19").
+                get("/hash/"+num).
                 then().
                 statusCode(200).log().all();
 
     }
 
 
-    @Test
+    @Test (priority=2)
     public void stats () {
 
         given().contentType(ContentType.JSON).
@@ -56,7 +56,7 @@ public class validationApp {
     }
 
 
-    @Test
+    @Test (priority=4)
         public void postshutdown() {
         JSONObject request = new JSONObject();
         request.put("shutdown", "");
